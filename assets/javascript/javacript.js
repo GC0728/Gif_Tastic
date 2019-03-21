@@ -1,16 +1,64 @@
 // GLOBAL VARIABLES; 21 TO HOLD API CALLS
 /* var apiURL = "http://api.giphy.com/v1/gifs/search?q=" + userInput + "&api_key=U6Zjyt5eoaIP28XWjbXBq7mRgSYfEBlZ&limit=5";
 console.log(apiURL); */
+var buttons = [];
 
-// BUTTON CLICK THAT STORES <INPUT> VALUE INTO OBJECT, ADDS OBJECT TO API CALL, RETURNS JSON
-$(".btn").click(function(){
- //   alert("Yep!");
+
+// CREATE DYNAMIC BUTTONS
+function makeButton() {
+    $(".form-inline").empty();
+    var newButton = $("<button>");
+    newButton.addClass("btn");
+    newButton.text("Click Me!");
+    $(".form-inline").append(newButton);
+
+
+}
+
+
+
+
+
+
+
+
+
+
+// BUTTON CLICK THAT STORES <INPUT> VALUE INTO OBJECT, ADDS OBJECT TO API CALL, RETURNS JSON, APPENDS JSON TO WEBPAGE: THIS WORKS 03/20/2019
+$(".btn").click(function(response){
  var userInput = $(".form-control").val().trim();
 console.log(userInput);
-var apiURL = "http://api.giphy.com/v1/gifs/search?q=" + userInput + "&api_key=U6Zjyt5eoaIP28XWjbXBq7mRgSYfEBlZ&limit=5";
+// var apiURL = "http://api.giphy.com/v1/gifs/search?q=" + userInput + "&api_key=U6Zjyt5eoaIP28XWjbXBq7mRgSYfEBlZ&limit=5";
+var apiURL = `https://api.giphy.com/v1/gifs/search?api_key=U6Zjyt5eoaIP28XWjbXBq7mRgSYfEBlZ&q=${userInput}&limit=10&offset=0&rating=G&lang=en`;
 console.log(apiURL);
-
+$.ajax({
+    url: apiURL,
+    method: "GET",
+}).then(function(response) {
+    $("#gifHolder").prepend(`
+    <div class="showGif"> <img src="${response.data[0].images.original_still.url}"> </div>`);
+    console.log(response);
 });
+});
+
+
+// DISPLAY GIPHY SEARCH RESULTS TO WEBPAGE
+/* function displayButton (response) {
+    $.ajax({
+        url: apiURL,
+        method: "GET",
+    }).then(function(response) {
+        $("#gifHolder").append(response.data)
+    }); */
+
+
+
+// DISPLAY GIPHY SEARCH RESULTS TO WEBPAGE
+/* $("#gifHolder").on("click", function(event){
+    event.preventDefault();
+
+}) */
+
 
 // AJAX API
 /* $.ajax({
