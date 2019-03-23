@@ -27,33 +27,36 @@ var dynoButton = $(".form-inline").on("click", function(event){
 .val()
 .trim(); */
 
+// API CALL
 
 
 
 // BUTTON CLICK THAT STORES <INPUT> VALUE INTO OBJECT, ADDS OBJECT TO API CALL, RETURNS JSON, APPENDS JSON TO WEBPAGE: THIS WORKS 03/20/2019
 $("button").click(function gifButton(response){
  var userInput = $(".form-control").val().trim();
+ var userTopic = $(this).attr("data-name");
 console.log(userInput);
 // var apiURL = "http://api.giphy.com/v1/gifs/search?q=" + userInput + "&api_key=U6Zjyt5eoaIP28XWjbXBq7mRgSYfEBlZ&limit=5";
-var apiURL = `https://api.giphy.com/v1/gifs/search?api_key=U6Zjyt5eoaIP28XWjbXBq7mRgSYfEBlZ&q=${userInput}&limit=10&offset=0&rating=G&lang=en`;
+// var apiURL = `https://api.giphy.com/v1/gifs/search?api_key=U6Zjyt5eoaIP28XWjbXBq7mRgSYfEBlZ&q=${userInput}&limit=10&offset=0&rating=G&lang=en`;
+var apiURL = `https://api.giphy.com/v1/gifs/search?api_key=U6Zjyt5eoaIP28XWjbXBq7mRgSYfEBlZ&q=${userTopic}&limit=10&offset=0&rating=G&lang=en`;
 console.log(apiURL);
 $.ajax({
     url: apiURL,
     method: "GET",
 }).then(function(response) {
-    $("#buttonHolder").prepend(` <button class="gifButton"> ${userInput} `)
-    
+    $("#buttonHolder").prepend(` <button class="gifButton" type="button"> ${userInput} `)
+   
  /*   $("#gifHolder").prepend(`
     <div class="showGif"> <img src="${response.data[0].images.original_still.url}"> </div>`); */
     console.log(response); 
 })
 
-$(".gifButton").on("click", function() {
+/* $(".gifButton").on("click", function() {
     event.preventDefault();
     var grabGif = (".userButton").val().trim();
     gifButton(grabGif);
-    $("#displayGif").prepend("Hi")
-    
+    $("#displayGif").prepend("Hi") */
+
 });
 
 /* function makeButton() {
@@ -66,7 +69,6 @@ $(".gifButton").on("click", function() {
 
 } */
 
-});
 
 
 // DISPLAY GIPHY SEARCH RESULTS TO WEBPAGE
