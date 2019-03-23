@@ -1,8 +1,7 @@
  // GLOBAL VARIABLES; 21 TO HOLD API CALLS
 /* var apiURL = "http://api.giphy.com/v1/gifs/search?q=" + userInput + "&api_key=U6Zjyt5eoaIP28XWjbXBq7mRgSYfEBlZ&limit=5";
 console.log(apiURL); */
-var buttons = [];
-
+var topics = ["Rick+and+Morty", "Bobs+Burgers", "Its+Always+Sunny+in+Philadelphia", "Workaholics", "Game+of+Thrones", "That+70s+Show"];
 
 // CREATE DYNAMIC BUTTONS
 /* function makeButton() {
@@ -13,25 +12,11 @@ var buttons = [];
     $(".form-inline").append(newButton);
 } */
 
-
-// DYNAMIC BUTTON MAKER
-/* $("#button-addon2")
-var dynoButton = $(".form-inline").on("click", function(event){
-   event.preventDefault();
-    var userButton = 
-    
-})
-.val()
-.trim(); */
-
-// API CALL
-
-
-
 // BUTTON CLICK THAT STORES <INPUT> VALUE INTO OBJECT, ADDS OBJECT TO API CALL, RETURNS JSON, APPENDS JSON TO WEBPAGE: THIS WORKS 03/20/2019
-$("body").on("click", "button.btn", function (response){
- var userInput = $(".form-control").val().trim();
- // var userTopic = $(this).attr("data-name"); THIS WOULD WORK WITH DIFFERENT METHOD FOR DYNAMIC BUTTON EVENTS
+$("button").click(topics, function () {
+ var userInput = $(this).attr("show-data")
+// var makeButton = $(".form-control").val().trim();
+ // var userTopic = $(this).attr("data-name"); THIS WOULD WORK WITH DIFFERENT METHOD FOR A DIFFERENT METHOD
 console.log(userInput);
 // var apiURL = "http://api.giphy.com/v1/gifs/search?q=" + userInput + "&api_key=U6Zjyt5eoaIP28XWjbXBq7mRgSYfEBlZ&limit=5";
 // var apiURL = `https://api.giphy.com/v1/gifs/search?api_key=U6Zjyt5eoaIP28XWjbXBq7mRgSYfEBlZ&q=${userInput}&limit=10&offset=0&rating=G&lang=en`;
@@ -41,13 +26,19 @@ $.ajax({
     url: apiURL,
     method: "GET",
 }).then(function(response) {
+    var showGIFS = response.data;
+    for (i = 0; i < showGIFS.length; i++) {
     $("#buttonHolder").empty();
-    $("#buttonHolder").prepend(` <button class="btn" type="button"> ${userInput} `)
-   alert("weeee!");
+    var gifButton = $("<button>");
+    gifButton.attr("show-data");
+    $("#buttonHolder").prepend(` <button type="button"> ${gifButton} `)
+ //  alert("weeee!");
    $("#displayGif").prepend(`
     <div class="showGif"> <img src="${response.data[0].images.original_still.url}"> </div>`); 
     console.log(response); 
-})
+};
+});
+
 
 /* $(".gifButton").on("click", function() {
     event.preventDefault();
